@@ -2,7 +2,7 @@
 %global package_srccommit v1.1.2
 Name: vmss
 Version: 1.1.2
-Release: 1%{?xsrel}%{?dist}
+Release: 1.0.1%{?xsrel}%{?dist}
 Summary: REQ-277 schedule snapshots feature
 License: GNU / GPLv2
 Source0: vmss-1.1.2.tar.gz
@@ -22,6 +22,7 @@ DESTDIR=$RPM_BUILD_ROOT make
 
 %install
 DESTDIR=$RPM_BUILD_ROOT make install
+sed -i s,#!/usr/bin/python,#!/usr/bin/python3, $RPM_BUILD_ROOT/etc/xapi.d/plugins/vmss
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -40,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT
 %config /etc/logrotate.d/VMSSlog
 
 %changelog
+* Tue Nov 05 2024 Yann Dirson <yann.dirson@vates.tech> - 1.1.2-1.0.1
+- HACK use python3 for /etc/xapi.d/plugins/vmss
+
 * Wed Nov 30 2022 Mark Syms <mark.syms@citrix.com> - 1.1.2-1
 - Remove implicit dependencies on SM code
 
